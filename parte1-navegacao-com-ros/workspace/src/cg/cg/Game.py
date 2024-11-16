@@ -1,12 +1,13 @@
 import pygame
 import sys
 
-from cg_interfaces.srv import MoveCmd
+from cg_interfaces.srv import MoveCmd, GetMap
 from rclpy.node import Node
 
 from .Maze import Maze
 from .Robot import Robot
 from .Utils.Finders import find
+from .Utils.Grid import flatten
 
 
 class Game(Node):
@@ -14,6 +15,8 @@ class Game(Node):
         super().__init__("Culling_Games")
         self.srv = self.create_service(MoveCmd, 'move_command',
                                        self.handle_move_cmd)
+        self.srv = self.create_service(GetMap, 'get_map',
+                                       self.handle_map_request)
         self.maze = Maze(maze_initial_configuration, resolution)
         self.running = False
         self.win = False
@@ -23,6 +26,12 @@ class Game(Node):
         self.handle_input()
         if not self.win:
             self.maze.draw()
+
+    def handle_map_request(self, request, response):
+        occ_grid = self.maze.get_occupancy_grid()
+        response.occupancy_grid_flattened = flatten(occ_grid)
+        response.occupancy_grid_shape = len(occ_grid), len(occ_grid[0])
+        return response
 
     def handle_move_cmd(self, request, response):
         direction = request.direction.lower()
