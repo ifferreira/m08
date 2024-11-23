@@ -3,6 +3,7 @@
 #include <queue>
 #include <memory>
 #include <cmath>
+#include <thread>
 #include "rclcpp/rclcpp.hpp"
 #include "cg_interfaces/srv/get_map.hpp"
 #include "cg_interfaces/srv/move_cmd.hpp"
@@ -78,8 +79,21 @@ private:
     {
         const int width = shape[0];
         const int height = shape[1];
-        const int start_x = 2, start_y = 2;
+        //const int start_x = 2, start_y = 2;
         const int goal_x = 17, goal_y = 17;
+
+        int start_x = -1, start_y = -1;
+
+        for (int y = 0; y < height; ++y) {
+            for (int x = 0; x < width; ++x) {
+                if (occupancy_grid[y * width + x] == 'r') {
+                    start_x = x;
+                    start_y = y;
+                    break;
+                }
+            }
+        if (start_x != -1) break;
+        }
 
         struct Node
         {
@@ -155,6 +169,7 @@ private:
             else if (dx == 0 && dy == -1) direction = "up";
 
             send_move_command(direction);
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
         }
     }
 
