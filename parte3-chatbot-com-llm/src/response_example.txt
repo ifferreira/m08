@@ -1,0 +1,20 @@
+Você: Who is allowed to operate a lathe? What protective gear should be used to do it?
+
+Chatbot: Based on the provided text, the following information can be deduced:
+
+* The person with work experience using "Wood lath machine" (likely an executive or supervisor) has calculated the risk rating for operating a lathe as 16, which falls into the "High" range.
+* To operate a lathe safely, one should:
+	+ Wear safety shoes and a lab coat
+	+ Wear safety goggles or a face shield
+	+ Wear ear muffs to prevent noise exposure
+	+ Wear a dust mask when generating dust
+	+ Not wear gloves during operation ( likely because gloves may interfere with handling the tools)
+* Additionally, some operational precautions are mentioned:
+	+ Ensure all clamps and fittings are secure before turning on the lathe
+	+ Use workpieces free of defects
+	+ Hold tools firmly with both hands against the tool rest
+	+ Securely hold stock on the faceplate or between centers
+	+ Use sharp, well-maintained chisels and gouges
+	+ Select a suitable speed for the job
+	+ Operate at a low speed and use moderate cut depth to prevent splinters during roughing operations
+	+ Adjust tool rests to be parallel and close to the stock
