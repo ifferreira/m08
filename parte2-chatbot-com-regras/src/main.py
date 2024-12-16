@@ -8,8 +8,8 @@ import nltk
 nltk.download('punkt')
 
 patterns = {
-    "ir_para": r"(ir\s*para\s*|leve\s*me\s*para\s*|quero\s*ir\s*para\s*|me\s*leva\s*para\s*|vá\s*para\s*|quero\s*ir\s*para\s*)(\w+)",
-    "ir_ao": r"(ir\s*ao\s*|leve\s*me\s*ao\s*|quero\s*ir\s*ao\s*|me\s*leva\s*ao\s*|vá\s*para\s*ao\s*)(\w+)",
+    "ir_para": r"(ir\s*para\s*|leve\s*me\s*para\s*|quero\s*ir\s*para\s*|me\s*leva\s*para\s*|vá\s*para\s*|quero\s*ir\s*para\s*|ir\s*para\s*o\s*)(\w+(\s*\w+)*)",
+    "ir_ao": r"(ir\s*ao\s*|leve\s*me\s*ao\s*|quero\s*ir\s*ao\s*|me\s*leva\s*ao\s*|vá\s*para\s*ao\s*|quero\s*ir\s*ao\s*)(\w+(\s*\w+)*)",
 }
 
 def identificar_intencao(comando):
@@ -21,7 +21,7 @@ def identificar_intencao(comando):
             return intencao, local
     return None, None
 
-resposta_dict = "Entendido! O robô está indo para o %s."
+resposta_dict = "Entendido! O robô está indo para %s."
 
 def acao_robot(intencao, local):
     if intencao and local:
@@ -68,8 +68,11 @@ class ChatBotNode(Node):
         self.get_logger().info(f"Resposta enviada: {resposta_msg.data}")
 
 def iniciar_conversa():
+    print("\n")
     print("Chatbot - Comandos de Posicionamento do Robô.")
     print("Digite 'sair' para encerrar a conversa.")
+    print("Use 'ir para {local}'.")
+    print("\n")
     
     while True:
         comando_usuario = input("Você: ").strip()
